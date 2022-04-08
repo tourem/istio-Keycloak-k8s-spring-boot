@@ -1,0 +1,54 @@
+---
+apiVersion: "security.istio.io/v1beta1"
+kind: "RequestAuthentication"
+metadata:
+  name: raemployee
+  namespace: nsemployee
+spec:
+  selector:
+    matchLabels:
+      app: employee
+  jwtRules:
+  - issuer: "http://localhost:8180/auth/realms/master"
+    jwksUri: "http://kubernetes.docker.internal:8180/auth/realms/master/protocol/openid-connect/certs"
+
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: my-authorization-policy
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      app: employee
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        requestPrincipals: ["*"]
+    to:
+    - operation:
+        paths: ["/app/employees"]
+  - from:
+    - source:
+        requestPrincipals: ["*"]
+    to:
+    - operation:
+        paths: ["/app/"]
+        methods: ["POST"]
+    when:
+    - key: request.auth.claims[preferred_username]
+      values: ["test"]
+  - from:
+    - source:
+        requestPrincipals: ["*"]
+    to:
+    - operation:
+        paths: ["/app/*"]
+        methods: ["DELETE"]
+  - to:
+    # The 2nd rule doesn't have `from` allowing any access (without JWT) to /healthz
+    - operation:
+        paths: ["/app/swagger*", "/app/swagger-ui/*", "/app/v3/api-docs/*", "/app/v3/api-docs*"]
+        #notPaths: ["/app/employees","/app/"]
