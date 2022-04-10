@@ -11,6 +11,8 @@ spec:
   jwtRules:
   - issuer: "http://localhost:8180/auth/realms/master"
     jwksUri: "http://kubernetes.docker.internal:8180/auth/realms/master/protocol/openid-connect/certs"
+    forwardOriginalToken: true # will instruct istio to forward the request to the app container keeping the “authorization” header. If that is not given, istio will just validate the token and delete the header and it won’t be available to your deployed application anymore
+
 
 ---
 apiVersion: security.istio.io/v1beta1
