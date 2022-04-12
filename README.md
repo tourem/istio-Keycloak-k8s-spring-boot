@@ -22,7 +22,6 @@ Istio Instalation (tested on istio-1.13.2)
 Kiali Dashboard
 </li>
 
-## Deploy and configure Keycloak
 
 # Istio sur le cluser k8s
 
@@ -37,7 +36,7 @@ Kiali Dashboard
 
 > docker-compose up
 
-# Config keycloak
+# Deploy and configure Keycloak
 
 ## Client
 
