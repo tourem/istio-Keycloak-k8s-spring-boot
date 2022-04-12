@@ -32,11 +32,11 @@ Kiali Dashboard
 > kubectl label namespace nsemployee istio-injection=enabled
 
 
-# Start keycloak with doccker compose
+# Deploy Keycloak
 
 > docker-compose up
 
-# Deploy and configure Keycloak
+# Configure Keycloak
 
 ## Client
 
