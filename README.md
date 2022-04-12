@@ -1,3 +1,29 @@
+# Istio-Ingress-Security-JWT-Keycloak
+
+This is sample repo to shows how to route requests based on JWT claims with authentication and authorizations on an Istio ingress gateway using Keycloak 
+
+## POC:
+<li>
+Deploy Keycloak and configure service account client
+</li>
+<li>
+Secure Istio Ingress gateway Keycloak's JWT
+</li>
+
+## Prerequisite
+
+<li>
+Kubernetes Cluster (tested on v1.21.5)
+ </li>
+ <li>
+Istio Instalation (tested on istio-1.13.2)
+</li>
+<li>
+Kiali Dashboard
+</li>
+
+## Deploy and configure Keycloak
+
 # Istio sur le cluser k8s
 
 > istioctl install --set profile=demo -y
