@@ -4,6 +4,8 @@ export DOMAIN_NAME=localhost
 # As a first step, you are going to create the root certificate ($DOMAIN_NAME.crt) and the private key used for signing the certificate ($DOMAIN_NAME.key):
 openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/O=localhost Inc./CN=localhost' -keyout root.private.$DOMAIN_NAME.key -out root.certificate.$DOMAIN_NAME.crt
 
+# En cas d'erreur : name is expected to be in the format /type0=value0/type1=value1/type2=... where characters may be escaped by \. This name is not in that format: 'C:/Program Files/Git/O=localhost Inc./CN=localhost'
+# problems making Certificate Request ===> export MSYS_NO_PATHCONV=1; puis relancer la commande 
 
 # Next, you need to create the private key:
 # create private key (employee.$DOMAIN_NAME.key) and certificate request or   certificate signing requests (CSR) (employee.$DOMAIN_NAME.csr ) use to create certificate
