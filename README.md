@@ -99,3 +99,13 @@ Kiali Dashboard
 # Get access token pour user admin ne pouvant pas effecuer un POST
 
 > export TKN=$(curl -d 'username=admin' -d 'password=admin' -d 'grant_type=password' -d 'client_id=istio' http://localhost:8180/auth/realms/master/protocol/openid-connect/token | jq -r '.access_token')
+
+# Kiali
+
+> cd istio-1.13.2
+> 
+> kubectl create -f samples/addons/prometheus.yaml
+>
+> kubectl create -f samples/addons/kiali.yaml
+>
+> istioctl dashboard kiali
