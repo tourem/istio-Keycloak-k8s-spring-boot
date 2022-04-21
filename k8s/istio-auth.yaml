@@ -1,9 +1,8 @@
 ---
 apiVersion: "security.istio.io/v1beta1"
-kind: "RequestAuthentication"
+kind: RequestAuthentication
 metadata:
   name: raemployee
-  namespace: nsemployee
 spec:
   selector:
     matchLabels:

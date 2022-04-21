@@ -2,7 +2,6 @@ apiVersion: v1 # Kubernetes API version
 kind: Service # Kubernetes resource kind we are creating
 metadata: # Metadata of the resource kind we are creating
   name: semployee
-  namespace: nsemployee
   labels:
     app: employee
 spec:
@@ -18,10 +17,10 @@ spec:
 apiVersion: apps/v1
 kind: Deployment # Kubernetes resource kind we are creating
 metadata:
-  name: deployemployee
-  namespace: nsemployee
+  name: deployemployee-v1
   labels:
     app: employee
+    version: "v1"
 spec:
   selector:
     matchLabels:
@@ -31,10 +30,70 @@ spec:
     metadata:
       labels:
         app: employee
+        version: "v1"
     spec:
       containers:
-        - name: containeremployee
-          image: springboot-k8s-example:3.0.0 # Image that will be used to containers in the cluster
+        - name: containeremployee-v1
+          image: springboot-k8s-example:1.0 # Image that will be used to containers in the cluster
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080 # The port that the container is running on in the cluster
+          env:
+            - name: VERSION
+              value: "v1"
+---
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: deployemployee-v2
+  labels:
+    app: employee
+    version: "v2"
+spec:
+  selector:
+    matchLabels:
+      app: employee
+  replicas: 1 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: employee
+        version: "v2"
+    spec:
+      containers:
+        - name: containeremployee-v2
+          image: springboot-k8s-example:1.0 # Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080 # The port that the container is running on in the cluster
+          env:
+            - name: VERSION
+              value: "v2"
+---
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: deployemployee-v3
+  labels:
+    app: employee
+    version: "v3"
+spec:
+  selector:
+    matchLabels:
+      app: employee
+  replicas: 1 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: employee
+        version: "v3"
+    spec:
+      containers:
+        - name: containeremployee-v3
+          image: springboot-k8s-example:1.0 # Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080 # The port that the container is running on in the cluster
+          env:
+            - name: VERSION
+              value: "v3"

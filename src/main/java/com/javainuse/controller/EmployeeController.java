@@ -3,6 +3,8 @@ package com.javainuse.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +20,18 @@ import com.javainuse.model.Employee;
 
 @CrossOrigin
 @RestController
+@Slf4j
 public class EmployeeController {
+
+	@Value("${VERSION}")
+	private String version;
 
 	private List<Employee> employees = createList();
 
 	@RequestMapping(value = "/employees", method = RequestMethod.GET, produces = "application/json")
 	@Operation(summary = "get employees", security = @SecurityRequirement(name = "bearerAuth"))
 	public List<Employee> firstPage() {
+		log.info("****************** Ping: version={} **********************************", version);
 		return employees;
 	}
 
