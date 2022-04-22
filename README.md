@@ -27,10 +27,15 @@ Kiali Dashboard
 
 > istioctl install --set profile=demo -y
 >
-> kubectl create ns nsemployee
->
-> kubectl label namespace nsemployee istio-injection=enabled
+> kubectl label namespace defaul istio-injection=enabled
 
+## If the EXTERNAL-IP value is set, your environment has an external load balancer that you can use for the ingress gateway. If the EXTERNAL-IP value is <none> (or perpetually <pending>), your environment does not provide an external load balancer for the ingress gateway. In this case, you can access the gateway using the service’s :
+ 
+ > istioctl install --set profile=default --set values.gateways.istio-ingressgateway.type=NodePort -y
+ 
+ ## Ensure that there are no issues with the configuration:
+
+ > istioctl analyze
 
 # Deploy Keycloak
 
