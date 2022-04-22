@@ -25,15 +25,15 @@ Kiali Dashboard
 
 # Istio sur le cluser k8s
 
-> istioctl install --set profile=demo -y
+> istioctl install --set profile=default -y
 >
 > kubectl label namespace defaul istio-injection=enabled
 
-## If the EXTERNAL-IP value is set, your environment has an external load balancer that you can use for the ingress gateway. If the EXTERNAL-IP value is <none> (or perpetually <pending>), your environment does not provide an external load balancer for the ingress gateway. In this case, you can access the gateway using the service’s nodePort :
+### If the EXTERNAL-IP value is set, your environment has an external load balancer that you can use for the ingress gateway. If the EXTERNAL-IP value is <none> (or perpetually <pending>), your environment does not provide an external load balancer for the ingress gateway. In this case, you can access the gateway using the service’s nodePort :
  
  > istioctl install --set profile=default --set values.gateways.istio-ingressgateway.type=NodePort -y
  
- ## Ensure that there are no issues with the configuration:
+ ### Ensure that there are no issues with the configuration:
 
  > istioctl analyze
 
