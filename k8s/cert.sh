@@ -9,7 +9,7 @@ openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/O=localhost 
 
 # Next, you need to create the private key:
 # create private key (employee.$DOMAIN_NAME.key) and certificate request or   certificate signing requests (CSR) (employee.$DOMAIN_NAME.csr ) use to create certificate
-openssl req -out $DOMAIN_NAME.csr -newkey rsa:2048 -nodes -keyout $DOMAIN_NAME.key -subj "/CN=$DOMAIN_NAME/O=api employee management from $DOMAIN_NAME"
+openssl req -out $DOMAIN_NAME.csr -newkey rsa:2048 -nodes -keyout $DOMAIN_NAME.key -subj "/CN=localhost/O=api employee management from localhost"
 
 # And the certificate:
 openssl x509 -req -days 365 -CA root.certificate.$DOMAIN_NAME.crt -CAkey root.private.$DOMAIN_NAME.key -set_serial 0 -in $DOMAIN_NAME.csr -out $DOMAIN_NAME.crt

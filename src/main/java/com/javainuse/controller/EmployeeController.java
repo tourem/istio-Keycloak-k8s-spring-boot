@@ -3,6 +3,10 @@ package com.javainuse.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +34,8 @@ public class EmployeeController {
 
 	@RequestMapping(value = "/employees", method = RequestMethod.GET, produces = "application/json")
 	@Operation(summary = "get employees", security = @SecurityRequirement(name = "bearerAuth"))
+	@Parameter(in = ParameterIn.HEADER, description = "Custom Header To be Pass", name = "x-api-version"
+			, content = @Content(schema = @Schema(type = "string", defaultValue = "v1", allowableValues = {"v1", "v2"})))
 	public List<Employee> firstPage() {
 		log.info("****************** Ping: version={} **********************************", version);
 		return employees;
