@@ -3,13 +3,8 @@
 kubectl delete -f k8s/deployment.yaml
 kubectl delete -f k8s/gateway-tls.yaml
 kubectl delete -f k8s/destination-rule.yaml
-if [[ $1 == -c ]]; then
-    kubectl delete -f k8s/virtual-service-canary.yaml
-else
-    kubectl delete -f k8s/virtual-service-ab-testing.yaml
-fi
-
-
+kubectl delete --ignore-not-found -f k8s/virtual-service-canary.yaml
+kubectl delete --ignore-not-found -f k8s/virtual-service-ab-testing.yaml
 kubectl delete -f k8s/istio-auth.yaml
 
 docker rmi --force $(docker images --format '{{.Repository}}:{{.Tag}}' | grep 'springboot-k8s-example')
